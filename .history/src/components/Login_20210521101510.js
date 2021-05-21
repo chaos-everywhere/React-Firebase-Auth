@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react"
-import { Form, Button, Card, Alert, Container, Jumbotron } from "react-bootstrap"
-
+import { Form, Card, Alert, Container, Jumbotron } from "react-bootstrap"
+import Button from "@material-ui/core/Button"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import ImageBg from "../images/image_bg.jpeg"
@@ -47,7 +47,7 @@ export default function Login() {
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" ref={passwordRef} required />
             </Form.Group>
-            <Button disabled={loading} className="w-100" type="submit">
+            <Button variant="contained" disabled={loading} className="w-100" type="submit" color="primary">
               Log In
             </Button>
           </Form>
