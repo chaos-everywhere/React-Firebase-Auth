@@ -4,7 +4,6 @@ import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import ImageBg from "../images/image_bg.jpeg"
 import { Component } from "react"
-import admin from "firebase-admin"
 
 export default function Login() {
   var sectionStyle = {
@@ -16,6 +15,14 @@ export default function Login() {
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const history = useHistory()
+
+  const getMyData = async () => {
+    let UID = firebase.auth().currentUser.uid;
+    let userData = await getUserDataByUID(UID);
+    // this will be null if there's no user data
+    // all users' data will be in userData for example:
+    console.log(userData.image) // will log the image url you saved.
+  }
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -31,26 +38,6 @@ export default function Login() {
 
     setLoading(false)
   }
-
-  const listAllUsers = (nextPageToken) => {
-    // List batch of users, 1000 at a time.
-    admin
-      .auth()
-      .listUsers(1000, nextPageToken)
-      .then((listUsersResult) => {
-        listUsersResult.users.forEach((userRecord) => {
-          console.log('user', userRecord.toJSON());
-        });
-        if (listUsersResult.pageToken) {
-          // List next batch of users.
-          listAllUsers(listUsersResult.pageToken);
-        }
-      })
-      .catch((error) => {
-        console.log('Error listing users:', error);
-      });
-  };
- 
 
   return (
       <Container>

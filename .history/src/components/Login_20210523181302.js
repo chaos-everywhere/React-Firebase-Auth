@@ -4,7 +4,6 @@ import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import ImageBg from "../images/image_bg.jpeg"
 import { Component } from "react"
-import admin from "firebase-admin"
 
 export default function Login() {
   var sectionStyle = {
@@ -58,7 +57,7 @@ export default function Login() {
         <Card.Body>
           <h2 className="text-center mb-4">Log In</h2>
           {error && <Alert variant="danger">{error}</Alert>}
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={listAllUsers}>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
               <Form.Control type="email" ref={emailRef} required />
